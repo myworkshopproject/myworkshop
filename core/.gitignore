@@ -1,0 +1,6 @@
+/.tox/
+/media/
+/node_modules/
+/venv/
+.coverage
+package-lock.json
