@@ -1,0 +1,19 @@
+<nav class="navbar has-shadow">
+    <div class="container">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                {% include 'myapp/navbars/items/main.html' %}
+            </div>
+            <div class="navbar-end">
+                {% include 'core/navbars/items/search.html' %}
+            </div>
+        </div>
+    </div>
+</nav>

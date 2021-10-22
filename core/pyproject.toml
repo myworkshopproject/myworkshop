@@ -1,0 +1,41 @@
+[tool.black]
+line-length = 88 # default
+target-version = ['py39']
+exclude = "/(migrations)/"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-rA --disable-pytest-warnings --cov=apps --cov=myapp --cov=utils"
+DJANGO_SETTINGS_MODULE = "myapp.settings"
+python_files = "tests.py test_*.py *_tests.py"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist =
+    py39-formmatters
+    py39-linters
+    py39-tests
+skipsdist = true
+
+[testenv:py39-formmatters]
+deps =
+    black
+commands =
+    black --check --diff apps myapp utils
+
+[testenv:py39-linters]
+deps =
+    flake8
+commands =
+    flake8 --max-line-length 88 --extend-ignore E203,W503 --exclude __pycache__,migrations apps myapp utils
+
+[testenv:py39-tests]
+passenv = *
+deps =
+    -rrequirements.txt
+    pytest-django
+    pytest-cov
+commands =
+    pytest apps myapp utils
+"""

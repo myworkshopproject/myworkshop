@@ -1,0 +1,21 @@
+{% load i18n %}
+{% url 'core:home' as the_url %}
+<a href="{{ the_url }}" class="navbar-item{% if request.path == the_url %} is-active{% endif %}">
+    <span class="icon">
+        <i class="fas fa-home"></i>
+    </span>
+    <span class="ml-1">{% trans 'Home' %}</span>
+</a>
+{% url 'accounts:user-list' as the_url %}
+<a href="{{ the_url }}" class="navbar-item{% if request.path == the_url %} is-active{% endif %}">
+    <span class="icon">
+        <i class="fas fa-users"></i>
+    </span>
+    <span class="ml-1">{% trans 'Members' %}</span>
+</a>
+<a href="{% url 'api:api-root' %}" class="navbar-item">
+    <span class="icon">
+        <i class="fas fa-globe-europe"></i>
+    </span>
+    <span class="ml-1">API</span>
+</a>

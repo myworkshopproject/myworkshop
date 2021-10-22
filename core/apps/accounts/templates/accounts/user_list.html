@@ -1,0 +1,41 @@
+{% extends "account/base.html" %}
+
+{% block main_menu %}
+{{ block.super }}
+{% if user == object %}
+{% include 'accounts/menus/items/main.html' %}
+{% endif %}
+{% include 'accounts/menus/items/members.html' %}
+{% endblock main_menu %}
+
+{% block page_content %}
+<h1 class="title">{{ object.title }}</h1>
+<p class="subtitle">{{ object.description }}</p>
+{% for object in object_list %}
+<div class="card block">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    {% if object.get_avatar_url %}
+                    <img class="is-rounded" src="{{ object.get_avatar_url }}">
+                    {% else %}
+                    <span class="icon is-large">
+                        <i class="fas fa-2x fa-user"></i>
+                    </span>
+                    {% endif %}
+                </figure>
+            </div>
+            <div class="media-content">
+                <p class="title is-4"><a href="{{ object.get_public_url }}">{{ object }}</a></p>
+                <p class="subtitle is-6">@{{ object.username }}</p>
+                {% include 'core/tags/main.html' %}
+            </div>
+        </div>
+        <div class="content">
+            {{ object.description }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock page_content %}

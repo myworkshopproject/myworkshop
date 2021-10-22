@@ -1,0 +1,7 @@
+{% if object.tags %}
+<div class="tags">
+    {% for tag in object.tags %}
+    <span class="tag is-primary">{{ tag }}</span>
+    {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,108 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block robots %}
+    <meta name="robots" content="noindex, nofollow">
+    {% endblock robots %}
+
+    <meta name="author" content="{% if object.author %}{{ object.author }}{% else %}{{ request.site.name }}{% endif %}">
+    <meta name="description" content="{% if object.description %}{{ object.description }}{% else %}{{ request.site.sitecustomization.tagline }}{% endif %}">
+    {% if object.tags %}
+    <meta name="keywords" content="{% for tag in object.tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+    {% endif %}
+    <meta name="generator" content="My Workshop">
+    <meta name="publisher" content="{{ request.site.name }}">
+
+    {% block opengraph %}
+    {% include "core/opengraph/base.html" %}
+    {% endblock opengraph %}
+
+    <title>{% block head_title %}{% if object.title %}{{ object.title }} | {% else %}{% endif %}{{ request.site.name }}{% endblock head_title %}</title>
+
+    {% block css %}
+    {% render_bundle 'runtime' 'css' %}
+    {% render_bundle 'vendors' 'css' %}
+    {% block page_css %}
+    {% render_bundle 'base' 'css' %}
+    {% endblock page_css %}
+    {% endblock css %}
+
+    {% block head_js %}
+    {% endblock head_js %}
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+</head>
+
+<body>
+    {% block body %}
+
+    {% block header %}
+    {% include 'core/navbars/header.html' %}
+    {% endblock header %}
+
+    {% block nav %}
+    {% include 'core/navbars/main.html' %}
+    {% endblock nav %}
+
+    {% block main %}
+    <main class="section">
+        <div class="container">
+            <div class="columns is-variable is-8">
+                <div class="column is-3">
+                    {% block messages %}
+                    {% include 'core/messages/base.html' %}
+                    {% endblock messages %}
+                </div>
+
+                <div class="column is-6">
+                    {% block page_content %}
+                    {% endblock page_content %}
+                </div>
+
+                <div class="column is-3">
+                    <aside class="menu block">
+                        {% block main_menu %}
+                        {% include 'core/menus/items/main.html' %}
+                        {% endblock main_menu %}
+                    </aside>
+                    <aside class="menu block sticky">
+                        {% block secondary_menu %}
+                        {% include 'core/menus/items/secondary.html' %}
+                        {% endblock secondary_menu %}
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock main %}
+
+    {% block footer %}
+    {% include 'core/footer/base.html' %}
+    {% endblock footer %}
+
+    {% endblock body %}
+
+    {% block body_js %}
+    {% render_bundle 'runtime' 'js' %}
+    {% render_bundle 'vendors' 'js' %}
+    {% block page_js %}
+    {% render_bundle 'base' 'js' %}
+    {% endblock page_js %}
+    {% endblock body_js %}
+
+    {% block extra_body %}
+    {% endblock extra_body %}
+</body>
+
+</html>
