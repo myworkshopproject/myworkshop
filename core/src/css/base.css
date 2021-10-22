@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+body>main {
+    flex: 1;
+}
+
+/* https://github.com/jgthms/bulma/issues/1655 */
+/* https://github.com/jgthms/bulma/blob/d85b492e3b288174e7d4894a04cdd9f3c3148daf/sass/components/navbar.sass#L9 */
+.navbar:first-child {
+    z-index: 31;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+}
