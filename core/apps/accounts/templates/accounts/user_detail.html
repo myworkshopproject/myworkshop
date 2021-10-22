@@ -1,0 +1,38 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block messages %}
+{% if object.get_avatar_url %}
+<div class="block">
+    <figure class="image">
+        <img class="is-rounded" src="{{ object.get_avatar_url }}">
+    </figure>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock messages %}
+
+{% block main_menu %}
+    {{ block.super }}
+    {% if user == object %}
+        {% include 'accounts/menus/items/main.html' %}
+    {% endif %}
+    {% include 'accounts/menus/items/members.html' %}
+{% endblock main_menu %}
+
+{% block page_content %}
+<h1 class="title">{{ object }}</h1>
+<p class="subtitle">@{{ object.username }}</p>
+
+{% include 'core/tags/main.html' %}
+
+<div class="content is-italic">
+    {{ object.description }}
+</div>
+
+<hr>
+
+<div class="content">
+    {{ object.html|safe }}
+</div>
+{% endblock page_content %}

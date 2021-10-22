@@ -1,0 +1,4 @@
+{% load i18n %}
+{% if user.is_staff %}
+{% include 'accounts/menus/items/admin.html' %}
+{% endif %}

@@ -1,0 +1,16 @@
+{% load i18n %}
+<p class="menu-label">
+    {% trans 'My account' %}
+</p>
+<ul class="menu-list">
+    {% url 'accounts:profile' as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'Change my profile' %}</a></li>
+    {% url 'accounts:user-detail' request.user.username as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'See my public profile' %}</a></li>
+    {% url 'account_email' as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'E-mail Addresses' %}</a></li>
+    {% url 'socialaccount_connections' as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'Account Connections' %}</a></li>
+    {% url 'account_change_password' as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'Change my password' %}</a></li>
+</ul>

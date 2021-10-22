@@ -1,0 +1,17 @@
+{% load i18n %}
+<p class="menu-label">
+    {% trans 'summary' %}
+</p>
+{% for level_1 in  object.toc %}
+<ul class="menu-list">
+    <li><a href="#{{ level_1.id }}">{{ level_1.name }}</a>
+    {% if level_1.children %}
+    <ul>
+        {% for level_2 in level_1.children %}
+        <li><a href="#{{ level_2.id }}">{{ level_2.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </li>
+</ul>
+{% endfor %}

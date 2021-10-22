@@ -1,0 +1,141 @@
+version: "3.8"
+
+x-nginx-env: &nginx-env
+  NGINX_HOST: "${MYAPP_DOMAIN}"
+  NGINX_PORT: 80
+  NGINX_CLIENT_MAX_BODY_SIZE: "${NGINX_CLIENT_MAX_BODY_SIZE}"
+
+x-postgres-env: &postgres-env
+  POSTGRES_HOST: "db"
+  POSTGRES_PORT: 5432
+  POSTGRES_DB: "${POSTGRES_DB}"
+  POSTGRES_USER: "${POSTGRES_USER}"
+  POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+
+x-rabbitmq-env: &rabbitmq-env
+  RABBITMQ_HOST: "brocker"
+  RABBITMQ_PORT: 5672
+  RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_DEFAULT_VHOST}"
+  RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
+  RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+
+x-django-env: &django-env
+  DEBUG: "${DEBUG}"
+  ALLOWED_HOSTS: "${MYAPP_DOMAIN}"
+  SITE_NAME: "${MYAPP_SITE_NAME}"
+  MEDIA_ROOT: "/var/lib/django/media/"
+  DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
+  DJANGO_SUPERUSER_USERNAME: "${DJANGO_SUPERUSER_USERNAME}"
+  DJANGO_SUPERUSER_PASSWORD: "${DJANGO_SUPERUSER_PASSWORD}"
+  DJANGO_SUPERUSER_EMAIL: "${DJANGO_SUPERUSER_EMAIL}"
+
+x-gunicorn-env: &gunicorn-env
+  GUNICORN_WORKERS: "${GUNICORN_WORKERS}"
+  GUNICORN_LOG_LEVEL: "${GUNICORN_LOG_LEVEL}"
+
+x-email-env: &email-env
+  EMAIL_HOST: "${EMAIL_HOST}"
+  EMAIL_PORT: "${EMAIL_PORT}"
+  EMAIL_HOST_USER: "${EMAIL_HOST_USER}"
+  EMAIL_HOST_PASSWORD: "${EMAIL_HOST_PASSWORD}"
+  EMAIL_USE_TLS: "${EMAIL_USE_TLS}"
+  EMAIL_USE_SSL: "${EMAIL_USE_SSL}"
+
+services:
+  reverse-proxy:
+    image: nginx:${NGINX_VERSION}-alpine
+    volumes:
+      - ./reverse-proxy/nginx/templates/:/etc/nginx/templates/:ro
+      - ./core/dist/assets/:/www/assets/:ro
+      - ./core/static/:/www/static/:ro
+      - core-media:/www/media/:ro
+    environment:
+      <<: *nginx-env
+    ports:
+      - "${NGINX_HOST_PORT}:80"
+    depends_on:
+      - core
+    restart: unless-stopped
+
+  db:
+    image: postgres:${POSTGRES_VERSION}-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    environment:
+      <<: *postgres-env
+    expose:
+      - "5432"
+    restart: unless-stopped
+
+  brocker:
+    image: rabbitmq:${RABBITMQ_VERSION}-management-alpine
+    volumes:
+      - brocker-data:/var/lib/rabbitmq/
+    environment:
+      <<: *rabbitmq-env
+    expose:
+      - "5672"
+    ports:
+      - "${RABBITMQ_MANAGEMENT_HOST_PORT}:15672"
+    restart: unless-stopped
+
+  core:
+    build:
+      context: ./core/
+      args:
+        - PYTHON_VERSION=${PYTHON_VERSION}
+    image: ${MYAPP_NAME}:${MYAPP_VERSION}
+    volumes:
+      - core-media:/var/lib/django/media/
+    environment:
+      <<: *postgres-env
+      <<: *rabbitmq-env
+      <<: *django-env
+      <<: *gunicorn-env
+      <<: *email-env
+    expose:
+      - "8000"
+    command:
+      - "./utils/wait-for-postgres.sh"
+      - "./utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "prod"
+    depends_on:
+      - db
+      - brocker
+    restart: unless-stopped
+
+  worker:
+    image: ${MYAPP_NAME}:${MYAPP_VERSION}
+    volumes:
+      - core-media:/var/lib/django/media/
+    environment:
+      <<: *postgres-env
+      <<: *rabbitmq-env
+      <<: *django-env
+      <<: *email-env
+    expose:
+      - "8000"
+    command:
+      - "./utils/wait-for-postgres.sh"
+      - "./utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "worker"
+    depends_on:
+      - db
+      - brocker
+      - core
+    restart: unless-stopped
+
+volumes:
+  db-data:
+    external: true
+    name: "${MYAPP_INSTANCE_NAME}_prod_db-data"
+
+  brocker-data:
+    external: true
+    name: "${MYAPP_INSTANCE_NAME}_prod_brocker-data"
+
+  core-media:
+    external: true
+    name: "${MYAPP_INSTANCE_NAME}_prod_core-media"

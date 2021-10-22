@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block main %}
+<main class="section">
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column">
+                {% block page_content %}
+                {% endblock page_content %}
+            </div>
+
+            <div class="column is-2">
+                {% block messages %}
+                {% include 'core/messages/base.html' %}
+                {% endblock messages %}
+
+                <aside class="menu block">
+                    {% block main_menu %}
+                    {% include 'core/menus/items/main.html' %}
+                    {% endblock main_menu %}
+                </aside>
+                <aside class="menu block sticky">
+                    {% block secondary_menu %}
+                    {% include 'core/menus/items/secondary.html' %}
+                    {% endblock secondary_menu %}
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

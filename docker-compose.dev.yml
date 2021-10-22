@@ -1,0 +1,62 @@
+version: "3.8"
+
+x-django-dev-env: &django-dev-env
+  DEBUG: "True"
+  ALLOWED_HOSTS: "localhost 127.0.0.1 [::1] ${MYAPP_DOMAIN}"
+  SITE_NAME: "${MYAPP_SITE_NAME} (dev)"
+
+x-node-dev-env: &node-dev-env
+  NODE_ENV: "development"
+
+services:
+  reverse-proxy:
+
+  db:
+    ports:
+      - "${POSTGRES_HOST_PORT_DEV}:5432"
+
+  brocker:
+    ports:
+      - "${RABBITMQ_HOST_PORT_DEV}:5672"
+
+  core:
+    volumes:
+      - ./core/:/code/
+    environment:
+      <<: *django-dev-env
+    ports:
+      - "${CORE_HOST_PORT_DEV}:8000"
+    command:
+      - "sleep"
+      - "infinity"
+
+  worker:
+    command:
+      - "/bin/true"
+    restart: "no"
+
+  frontend:
+    image: node:${NODE_VERSION}
+    volumes:
+      - ./core/:/code/
+    environment:
+      <<: *node-dev-env
+    ports:
+      - "${FRONTEND_HOST_PORT_DEV}:3000"
+    working_dir: /code
+    command:
+      - "sleep"
+      - "infinity"
+
+volumes:
+  db-data:
+    external: false
+    name: "${MYAPP_NAME}_dev_db-data"
+
+  brocker-data:
+    external: false
+    name: "${MYAPP_NAME}_dev_brocker-data"
+
+  core-media:
+    external: false
+    name: "${MYAPP_NAME}_dev_core-media"

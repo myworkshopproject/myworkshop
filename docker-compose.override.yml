@@ -1,0 +1,39 @@
+version: "3.8"
+
+x-django-quickstart-env: &django-quickstart-env
+  DEBUG: "True"
+  ALLOWED_HOSTS: "localhost 127.0.0.1 [::1] ${MYAPP_DOMAIN}"
+  SITE_NAME: "${MYAPP_SITE_NAME} (demo)"
+
+services:
+  reverse-proxy:
+
+  db:
+
+  brocker:
+
+  core:
+    environment:
+      <<: *django-quickstart-env
+    command:
+      - "./utils/wait-for-postgres.sh"
+      - "./utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "quickstart"
+
+  worker:
+    environment:
+      <<: *django-quickstart-env
+
+volumes:
+  db-data:
+    external: false
+    name: "myworkshop_quickstart_db-data"
+
+  brocker-data:
+    external: false
+    name: "myworkshop_quickstart_brocker-data"
+
+  core-media:
+    external: false
+    name: "myworkshop_quickstart_core-media"

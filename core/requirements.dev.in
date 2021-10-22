@@ -1,0 +1,15 @@
+-c requirements.txt
+
+# Debug
+django-debug-toolbar
+
+# Code formmatters
+black
+
+# Linters
+flake8
+
+# Testing
+tox
+pytest-django
+pytest-cov

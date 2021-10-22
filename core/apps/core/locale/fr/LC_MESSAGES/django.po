@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-22 17:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: apps.py:7
+msgid "Core app"
+msgstr ""
+
+#: models/site.py:39
+msgid "site"
+msgstr "site"
+
+#: models/site.py:43
+msgid "is open for signup"
+msgstr "ouvert aux nouvelles inscriptions"
+
+#: models/site.py:49
+msgid "tagline"
+msgstr "slogan"
+
+#: models/site.py:50
+msgid "A few words to describe this very website."
+msgstr "Quelques mots pour décrire ce site."
+
+#: models/site.py:57
+msgid "description"
+msgstr "description"
+
+#: models/site.py:58 models/site.py:59
+msgid "A short text to describe this very website."
+msgstr "Un court texte pour décrire ce site."
+
+#: models/site.py:67
+msgid "featured image"
+msgstr "image principale"
+
+#: models/site.py:72
+msgid "fontawesome site icon"
+msgstr ""
+
+#: models/site.py:74
+msgid "Get icon name from <a href='https://fontawesome.com/'>Font Awesome</a>."
+msgstr ""
+
+#: models/site.py:80
+msgid "site customization"
+msgstr "personnalisation de site"
+
+#: models/site.py:81
+msgid "site customizations"
+msgstr "personnalisations de site"
+
+#: models/site.py:85
+msgid "unknown"
+msgstr "inconnu"
+
+#: templates/core/footer/base.html:11
+msgid "by"
+msgstr "par"
+
+#: templates/core/footer/base.html:13
+msgid "and"
+msgstr "et"
+
+#: templates/core/footer/base.html:14
+msgid "many contributors"
+msgstr "de nombreux contributeurs"
+
+#: templates/core/footer/base.html:16
+msgid "Source code is licensed"
+msgstr "Le code source est placé sous licence"
+
+#: templates/core/footer/base.html:18
+msgid "Website content is licensed"
+msgstr "Le contenu du site web est placé sous licence"
+
+#: templates/core/menus/items/toc.html:3
+msgid "summary"
+msgstr "sommaire"
+
+#: templates/core/messages/base.html:9
+msgid "Info"
+msgstr "Info"
+
+#: templates/core/messages/base.html:20
+msgid "Success"
+msgstr "Succès"
+
+#: templates/core/messages/base.html:31
+msgid "Warning"
+msgstr "Attention"
+
+#: templates/core/messages/base.html:42
+msgid "Error"
+msgstr "Erreur"
+
+#: templates/core/messages/base.html:53
+msgid "Debug"
+msgstr "Debug"
+
+#: templates/core/messages/base.html:64
+msgid "Message"
+msgstr "Message"
+
+#: templates/core/navbars/items/search.html:5
+msgid "Search"
+msgstr "Rechercher"
+
+#: validators.py:8
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers, and _ "
+"character."
+msgstr ""
+
+#: views/base.py:11
+msgid "Home"
+msgstr "Accueil"

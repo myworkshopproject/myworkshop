@@ -1,0 +1,37 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block messages %}
+{% if user.get_avatar_url %}
+<div class="block">
+    <figure class="image">
+        <img class="is-rounded" src="{{ user.get_avatar_url }}">
+    </figure>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock messages %}
+
+{% block main_menu %}
+{{ block.super }}
+{% include 'accounts/menus/items/main.html' %}
+{% endblock main_menu %}
+
+{% block content %}
+<h1 class="title">{% trans 'Change my profile' %}</h1>
+<p class="subtitle">@{{ object.username }}</p>
+
+{% include 'core/tags/main.html' %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% include "core/forms/bulma.html" %}
+
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary" type="submit">{% trans "Save" %}</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

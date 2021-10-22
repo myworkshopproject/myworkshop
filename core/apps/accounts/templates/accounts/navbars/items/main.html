@@ -1,0 +1,28 @@
+{% load i18n %}
+{% url 'accounts:profile' as the_url %}
+<div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+        <span class="icon-text">
+            {% if user.get_avatar_url %}
+            <figure class="image mr-1">
+                <img class="is-rounded" src="{{ user.get_avatar_url }}">
+            </figure>
+            {% else %}
+            <span class="icon">
+                <i class="fas fa-lg fa-user"></i>
+            </span>
+            {% endif %}
+            <span class="ml-1">{{ user }}</span>
+        </span>
+    </a>
+    <div class="navbar-dropdown is-right">
+        {% if user.is_staff %}
+        <a class="navbar-item" href="{% url 'admin:index' %}">{% trans 'Admin' %}</a>
+        {% endif %}
+        {% url 'accounts:profile' as the_url %}
+        <a class="navbar-item" href="{{ the_url }}">{% trans 'My account' %}</a>
+        <hr class="navbar-divider">
+        {% url 'account_logout' as the_url %}
+        <a class="navbar-item{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'Sign Out' %}</a>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+{% load i18n %}
+<p class="menu-label">
+    {% trans 'Members' %}
+</p>
+<ul class="menu-list">
+    {% url 'accounts:user-list' as the_url %}
+    <li><a class="{% if request.path == the_url %} is-active{% endif %}" href="{{ the_url }}">{% trans 'Registered members' %}</a></li>
+</ul>

@@ -1,0 +1,10 @@
+<a class="navbar-item" href="{% url 'core:home' %}">
+    <div class="icon is-large">
+        <i class="fa-2x {{ request.site.sitecustomization.fontawesome_site_icon }}"></i>
+    </div>
+    <div class="ml-2">
+        <span class="is-size-5 has-text-weight-bold">{{ request.site.name }}</span>
+        <br>
+        <span class="is-size-7 is-italic">{{ request.site.sitecustomization.tagline|truncatewords:10 }}</span>
+    </div>
+</a>
