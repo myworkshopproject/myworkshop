@@ -1,0 +1,39 @@
+name: Deploy docs.latelierpartage.fr
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    name: "Deploy to alwaysdata"
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Configure SSH
+      env:
+        SSH_USER: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_SSH_USER }}
+        SSH_KEY: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_SSH_KEY }}
+        SSH_HOST: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_SSH_HOST }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_KEY" > ~/.ssh/alwaysdata.key
+        chmod 600 ~/.ssh/alwaysdata.key
+        cat >>~/.ssh/config <<END
+        Host alwaysdata
+          HostName $SSH_HOST
+          User $SSH_USER
+          IdentityFile ~/.ssh/alwaysdata.key
+          StrictHostKeyChecking no
+        END
+
+    - name: Update code and run migrations
+      env:
+        UPDATE_SCRIPT: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_UPDATE_SCRIPT }}
+      run: ssh alwaysdata "$UPDATE_SCRIPT"
+
+    - name: Restart Site
+      env:
+        APIKEY: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_APIKEY }}
+        ACCOUNT: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_ACCOUNT }}
+        SITE: ${{ secrets.LATELIERPARTAGE_DOCS_ALWAYSDATA_SITE }}
+      run: curl -X POST --basic --user "$APIKEY account=$ACCOUNT:" https://api.alwaysdata.com/v1/site/$SITE/restart/
