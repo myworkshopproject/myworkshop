@@ -71,6 +71,7 @@ Then run:
 ``` bash
 (core) $ make venv
 (core) $ make install-dev
+(core) $ make migrations
 (core) $ make migrate
 (core) $ make populate-db
 (core) $ make createsuperuser
