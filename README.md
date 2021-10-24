@@ -1,13 +1,16 @@
 # My Workshop
 A decentralized application to create and share your project documentation.
 
-## Disclaimer
-This project is at a very early stage of development: It can evolve dramatically at the next commits!
+> **:warning: Disclaimer**: This project is at a very early stage of development: It can evolve dramatically at the next commits!
 
 ## Features
 - Generates beautiful documentation for your projects;
 - Provides a laboratory notebook to document your experiments;
 - Simplifies the management of your workshop, your fab lab or your makerspace.
+
+## Powered by _My Workshop_
+- [My Workshop Project (https://myworkshopproject.com)](https://myworkshopproject.com)
+- [L'atelier partagé (https://docs.latelierpartage.fr)](https://docs.latelierpartage.fr)
 
 ## Installation
 
