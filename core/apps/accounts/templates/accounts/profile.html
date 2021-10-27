@@ -10,6 +10,41 @@
 </div>
 {% endif %}
 {{ block.super }}
+{% if not "description" in object.metadata %}
+<div class="message is-info">
+    <div class="message-header">
+        <span>
+            <i class="fas fa-info-circle"></i>
+            {% trans 'Info' %}
+        </span>
+        <button class="delete"></button>
+    </div>
+    <div class="message-body">
+        <p class="block">
+            {% blocktranslate %}You can add a short description with the following keyword at the top of your text:{% endblocktranslate %}
+        </p>
+        <pre class="block">description: ...</pre>
+    </div>
+</div>
+{% endif %}
+{% if not "tag" in object.metadata %}
+<div class="message is-info">
+    <div class="message-header">
+        <span>
+            <i class="fas fa-info-circle"></i>
+            {% trans 'Info' %}
+        </span>
+        <button class="delete"></button>
+    </div>
+    <div class="message-body">
+        <p class="block">
+            {% blocktranslate %}You can add some tags with the following keywords at the top of your text:{% endblocktranslate %}
+        </p>
+        <pre class="block">tag: ...
+tag: ...</pre>
+    </div>
+</div>
+{% endif %}
 {% endblock messages %}
 
 {% block main_menu %}
