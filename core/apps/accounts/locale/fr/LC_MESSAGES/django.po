@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-22 18:52+0000\n"
+"POT-Creation-Date: 2021-10-27 07:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -482,7 +482,7 @@ msgstr ""
 #: templates/accounts/menus/items/admin.html:6
 #: templates/accounts/navbars/items/main.html:20
 msgid "Admin"
-msgstr ""
+msgstr "Administration"
 
 #: templates/accounts/menus/items/main.html:3
 #: templates/accounts/navbars/items/main.html:23
@@ -490,6 +490,7 @@ msgid "My account"
 msgstr "Mon compte"
 
 #: templates/accounts/menus/items/main.html:7
+#: templates/accounts/profile.html:60
 msgid "Change my profile"
 msgstr "Modifier mon profil"
 
@@ -515,11 +516,26 @@ msgstr "Membres"
 msgid "Registered members"
 msgstr "Membres inscrits"
 
-#: templates/accounts/profile.html:21
-msgid "Profile"
-msgstr "Profil"
+#: templates/accounts/profile.html:18 templates/accounts/profile.html:37
+msgid "Info"
+msgstr ""
 
-#: templates/accounts/profile.html:32
+#: templates/accounts/profile.html:24
+msgid ""
+"You can add a short description with the following keyword at the top of "
+"your text:"
+msgstr ""
+"Vous pouvez ajouter une courte description avec le mot-clé suivant en haut "
+"de votre texte :"
+
+#: templates/accounts/profile.html:43
+msgid ""
+"You can add some tags with the following keywords at the top of your text:"
+msgstr ""
+"Vous pouvez ajouter des tags avec les mots-clés suivants en haut "
+"de votre texte :"
+
+#: templates/accounts/profile.html:72
 msgid "Save"
 msgstr ""
 
