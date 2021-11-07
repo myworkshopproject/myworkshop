@@ -80,6 +80,10 @@ generate_secret_key: ## Generates a Secret Key.
 tests: ## Runs all tests.
 	venv/bin/tox
 
+.PHONY: shell
+shell: ## Starts the Python interactive interpreter.
+	venv/bin/python manage.py shell
+
 .PHONY: help
 help: ## Lists all the available commands.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
