@@ -156,7 +156,7 @@ WEBPACK_LOADER = {
 }
 
 # Default primary key field type
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Email
 EMAIL_HOST_USER = str(os.environ["EMAIL_HOST_USER"])
