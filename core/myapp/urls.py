@@ -3,18 +3,21 @@ from django.urls import (
     include,
     path,
 )
+from django.conf.urls.i18n import i18n_patterns
 from rest_framework.routers import DefaultRouter
 
 from accounts.viewsets import UserViewSet
 
-
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
+]
+
+urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path("i18n/", include("django.conf.urls.i18n")),
     path("", include("accounts.urls")),
     path("", include("core.urls")),
-]
+)
 
 router = DefaultRouter()
 
