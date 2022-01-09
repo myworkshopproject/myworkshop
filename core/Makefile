@@ -13,8 +13,8 @@ venv: ## Creates a virtual environment.
 .PHONY: requirements
 requirements: ## Builds or updates requirements.
 	venv/bin/pip install --upgrade pip wheel setuptools pip-tools
-	venv/bin/pip-compile requirements.in
-	venv/bin/pip-compile requirements.dev.in
+	venv/bin/pip-compile --upgrade requirements.in
+	venv/bin/pip-compile --upgrade requirements.dev.in
 
 .PHONY: install
 install: ## Installs production dependencies.
@@ -79,6 +79,10 @@ generate_secret_key: ## Generates a Secret Key.
 .PHONY: tests
 tests: ## Runs all tests.
 	venv/bin/tox
+
+.PHONY: shell
+shell: ## Starts the Python interactive interpreter.
+	venv/bin/python manage.py shell
 
 .PHONY: help
 help: ## Lists all the available commands.

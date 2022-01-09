@@ -127,10 +127,12 @@ USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en"
 LANGUAGES = (
-    ("fr", _("French")),
     ("en", _("English")),
+    ("fr", _("French")),
 )
-MODELTRANSLATION_FALLBACK_LANGUAGES = ("fr",)
+MODELTRANSLATION_DEFAULT_LANGUAGE = str(os.environ["LANGUAGE_CODE"])
+MODELTRANSLATION_ENABLE_FALLBACKS = True
+MODELTRANSLATION_FALLBACK_LANGUAGES = (MODELTRANSLATION_DEFAULT_LANGUAGE,)
 
 # Static files
 STATIC_URL = "/static/"
@@ -154,7 +156,7 @@ WEBPACK_LOADER = {
 }
 
 # Default primary key field type
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Email
 EMAIL_HOST_USER = str(os.environ["EMAIL_HOST_USER"])

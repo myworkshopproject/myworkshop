@@ -48,7 +48,6 @@ class SiteCustomization(models.Model):
         max_length=255,
         verbose_name=_("tagline"),
         help_text=_("A few words to describe this very website."),
-        default="A few words to describe this very website.",
     )
 
     description = models.TextField(  # [i18n]
@@ -56,7 +55,6 @@ class SiteCustomization(models.Model):
         max_length=2048,
         verbose_name=_("description"),
         help_text=_("A short text to describe this very website."),
-        default=_("A short text to describe this very website."),
     )
 
     image = models.ImageField(
