@@ -13,8 +13,8 @@ venv: ## Creates a virtual environment.
 .PHONY: requirements
 requirements: ## Builds or updates requirements.
 	venv/bin/pip install --upgrade pip wheel setuptools pip-tools
-	venv/bin/pip-compile requirements.in
-	venv/bin/pip-compile requirements.dev.in
+	venv/bin/pip-compile --upgrade requirements.in
+	venv/bin/pip-compile --upgrade requirements.dev.in
 
 .PHONY: install
 install: ## Installs production dependencies.
