@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+// https://bootswatch.com/vapor/
+
+// Colors
+$yellow:        #ffc107; // hsl(44,  100%, 77%);
+$green:         #3cf281; // hsl(153, 53%,  53%);
+$cyan:          #44d9e8; // hsl(207, 61%,  53%);
+$blue:          #1ba2f6; // hsl(229, 53%,  53%);
+$purple:        #6f42c1;; // hsl(271, 100%, 71%);
+$red:           #e44c55; // hsl(348, 86%, 61%);
+$pink:              #ea39b8;
+$pink-dark:         #170229;
+$primary:       $purple; // $turquoise;
+$info:          $blue; // $cyan;
+$light:         $cyan; // $white-ter;
+$dark:          $pink-dark; // $grey-darker;
+$link: $cyan; // $blue;
+$link-focus-border: $cyan; // $blue;

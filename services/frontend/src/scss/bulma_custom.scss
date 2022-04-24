@@ -1,15 +1,20 @@
 @charset "utf-8";
 
-// Import bulma.sass
-@import "~bulma/bulma.sass";
+// Colors
+// @import "./cosmo.scss";
+// @import "./cyborg.scss";
+// @import "./flatly.scss";
+@import "./sandstone.scss";
+// @import "./united.scss";
+// @import "./vapor.scss";
 
-// Or import only what you need from Bulma
-// @import "~bulma/sass/utilities/_all.sass";
-// @import "~bulma/sass/base/_all.sass";
-// @import "~bulma/sass/elements/button.sass";
-// @import "~bulma/sass/elements/container.sass";
-// @import "~bulma/sass/elements/title.sass";
-// @import "~bulma/sass/form/_all.sass";
-// @import "~bulma/sass/components/navbar.sass";
-// @import "~bulma/sass/layout/hero.sass";
-// @import "~bulma/sass/layout/section.sass";
+// Typography
+@import "./typography.scss";
+
+// Miscellaneous
+$radius-small: 1px; // 2px;
+$radius: 2px; // 4px;
+$radius-large: 3px; // 6px;
+$radius-rounded: 9999px;
+
+@import "~bulma/bulma.sass";

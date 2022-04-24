@@ -10,17 +10,14 @@
         </figure>
     </div>
     <div class="column is-4">
-    {% else %}
-    <div class="is-offset-4 column is-6">
-    {% endif %}
-        <h1 class="title">{{ request.site.name }}</h1>
-        <p class="subtitle">{{ request.site.sitecustomization.tagline }}</p>
-        <div class="content">
-            {{ request.site.sitecustomization.description|safe }}
+        {% else %}
+        <div class="is-offset-4 column is-6">
+            {% endif %}
+            <h1 class="title">{{ request.site.name }}</h1>
+            <p class="subtitle">{{ request.site.sitecustomization.tagline }}</p>
+            <div class="content">
+                {{ request.site.sitecustomization.description|safe }}
+            </div>
         </div>
-        {% if not user.is_authenticated %}
-        {% include "accounts/buttons/login.html" %}
-        {% endif %}
     </div>
-</div>
-{% endblock page_content %}
+    {% endblock page_content %}

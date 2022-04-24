@@ -1,6 +1,41 @@
 {
   "status": "done",
   "assets": {
+    "fonts/a8d6ac03c7b96b7acb62.ttf": {
+      "name": "fonts/a8d6ac03c7b96b7acb62.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/a8d6ac03c7b96b7acb62.ttf",
+      "publicPath": "/static/assets/fonts/a8d6ac03c7b96b7acb62.ttf"
+    },
+    "fonts/43cbee784f9194c54b2c.ttf": {
+      "name": "fonts/43cbee784f9194c54b2c.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/43cbee784f9194c54b2c.ttf",
+      "publicPath": "/static/assets/fonts/43cbee784f9194c54b2c.ttf"
+    },
+    "fonts/418a8f9f65ccad0918af.ttf": {
+      "name": "fonts/418a8f9f65ccad0918af.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/418a8f9f65ccad0918af.ttf",
+      "publicPath": "/static/assets/fonts/418a8f9f65ccad0918af.ttf"
+    },
+    "fonts/3fb4dd2923a5b4136a34.ttf": {
+      "name": "fonts/3fb4dd2923a5b4136a34.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/3fb4dd2923a5b4136a34.ttf",
+      "publicPath": "/static/assets/fonts/3fb4dd2923a5b4136a34.ttf"
+    },
+    "fonts/715e9cea90f54d5a4093.ttf": {
+      "name": "fonts/715e9cea90f54d5a4093.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/715e9cea90f54d5a4093.ttf",
+      "publicPath": "/static/assets/fonts/715e9cea90f54d5a4093.ttf"
+    },
+    "fonts/3cbbed9ea170d3b9e426.ttf": {
+      "name": "fonts/3cbbed9ea170d3b9e426.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/3cbbed9ea170d3b9e426.ttf",
+      "publicPath": "/static/assets/fonts/3cbbed9ea170d3b9e426.ttf"
+    },
+    "fonts/6e5f70731aeed7c6e895.ttf": {
+      "name": "fonts/6e5f70731aeed7c6e895.ttf",
+      "path": "/code/services/frontend/dist/assets/fonts/6e5f70731aeed7c6e895.ttf",
+      "publicPath": "/static/assets/fonts/6e5f70731aeed7c6e895.ttf"
+    },
     "fonts/ebb7a127d2d8ee6f1832.woff2": {
       "name": "fonts/ebb7a127d2d8ee6f1832.woff2",
       "path": "/code/services/frontend/dist/assets/fonts/ebb7a127d2d8ee6f1832.woff2",
@@ -46,20 +81,20 @@
       "path": "/code/services/frontend/dist/assets/img/e5ff389664317b002d00.svg",
       "publicPath": "/static/assets/img/e5ff389664317b002d00.svg"
     },
-    "css/base.bc2a774a755c82142227.css": {
-      "name": "css/base.bc2a774a755c82142227.css",
-      "path": "/code/services/frontend/dist/assets/css/base.bc2a774a755c82142227.css",
-      "publicPath": "/static/assets/css/base.bc2a774a755c82142227.css"
+    "css/base.24bfecb1ca6b4d253985.css": {
+      "name": "css/base.24bfecb1ca6b4d253985.css",
+      "path": "/code/services/frontend/dist/assets/css/base.24bfecb1ca6b4d253985.css",
+      "publicPath": "/static/assets/css/base.24bfecb1ca6b4d253985.css"
     },
     "js/base.867c8c105843794441a5.js": {
       "name": "js/base.867c8c105843794441a5.js",
       "path": "/code/services/frontend/dist/assets/js/base.867c8c105843794441a5.js",
       "publicPath": "/static/assets/js/base.867c8c105843794441a5.js"
     },
-    "css/signup.bc2a774a755c82142227.css": {
-      "name": "css/signup.bc2a774a755c82142227.css",
-      "path": "/code/services/frontend/dist/assets/css/signup.bc2a774a755c82142227.css",
-      "publicPath": "/static/assets/css/signup.bc2a774a755c82142227.css"
+    "css/signup.24bfecb1ca6b4d253985.css": {
+      "name": "css/signup.24bfecb1ca6b4d253985.css",
+      "path": "/code/services/frontend/dist/assets/css/signup.24bfecb1ca6b4d253985.css",
+      "publicPath": "/static/assets/css/signup.24bfecb1ca6b4d253985.css"
     },
     "js/signup.a37d7f63c89e2161bb7e.js": {
       "name": "js/signup.a37d7f63c89e2161bb7e.js",
@@ -97,14 +132,14 @@
       "js/runtime.9c6e8a0ef65ee662ea87.js",
       "css/vendors.b5f6da077368e6780225.css",
       "js/vendors.27e530b88a265f4a94ab.js",
-      "css/base.bc2a774a755c82142227.css",
+      "css/base.24bfecb1ca6b4d253985.css",
       "js/base.867c8c105843794441a5.js"
     ],
     "signup": [
       "js/runtime.9c6e8a0ef65ee662ea87.js",
       "css/vendors.b5f6da077368e6780225.css",
       "js/vendors.27e530b88a265f4a94ab.js",
-      "css/signup.bc2a774a755c82142227.css",
+      "css/signup.24bfecb1ca6b4d253985.css",
       "js/signup.a37d7f63c89e2161bb7e.js"
     ]
   },
