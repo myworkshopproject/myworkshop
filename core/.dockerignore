@@ -1,9 +1,0 @@
-*
-!apps
-!myapp
-!templates
-!utils
-!Makefile
-!manage.py
-!requirements.txt
-!webpack-stats.json

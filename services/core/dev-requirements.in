@@ -1,0 +1,13 @@
+-c requirements.txt
+
+# Code formmatters
+black
+
+# Linters
+pylint
+flake8
+
+# Testing
+tox
+pytest-django
+pytest-cov
