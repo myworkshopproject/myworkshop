@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+// https://bootswatch.com/sandstone/
+
+// Colors
+$grey-darker: hsl(48, 4%, 24%); // #3e3f3a; // hsl(0, 0%, 21%);
+$grey-dark: hsl(48, 4%, 29%); // hsl(0, 0%, 29%);
+$grey: hsl(48, 4%, 54%); // #8e8c84; // hsl(0, 0%, 48%);
+$grey-light: hsl(48, 4%, 71%); // hsl(0, 0%, 71%);
+$grey-lighter: hsl(48, 4%, 86%); // hsl(0, 0%, 86%);
+$grey-lightest: hsl(48, 4%, 93%); // hsl(0, 0%, 93%);
+$white-ter: hsl(48, 4%, 96%); // hsl(0, 0%, 96%);
+$white-bis: hsl(48, 4%, 98%); // hsl(0, 0%, 98%);
+$white: hsl(48, 4%, 100%); // hsl(0, 0%, 100%);
+$orange: #f47c3c; // hsl(14,  100%, 53%);
+$green: #93c54b; // hsl(153, 53%,  53%);
+$turquoise: #325d88; // hsl(171, 100%, 41%);
+$blue: #29abe0; // hsl(229, 53%,  53%);
+$red: #d9534f; // hsl(348, 86%, 61%);
+$primary: $turquoise; // $turquoise;
+$info: $blue; // $cyan;
+$warning: $orange; // $yellow;
+$link: $green; // $blue;
+$link-focus-border: $grey; // $blue;

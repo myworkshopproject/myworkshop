@@ -1,0 +1,10 @@
+*
+!services/core/apps
+!services/core/myapp
+!services/core/templates
+!services/core/utils
+!services/core/Makefile
+!services/core/manage.py
+!services/core/requirements.txt
+!services/frontend/dist/assets
+!services/frontend/webpack-stats.json

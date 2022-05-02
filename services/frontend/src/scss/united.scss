@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+// https://bootswatch.com/united/
+
+// Colors
+$orange:            #e95420; // hsl(14,  100%, 53%);
+$yellow:            #efb73e; // hsl(44,  100%, 77%);
+$green:             #38b44a; // hsl(153, 53%,  53%);
+$blue:              #17a2b8; // hsl(229, 53%,  53%);
+$purple:            #772953; // hsl(271, 100%, 71%);
+$red:               #df382c; // hsl(348, 86%, 61%);
+$primary:           $purple; // $turquoise;
+$info:              $blue; // $cyan;
+$link:              $orange; // $blue;
+$link-focus-border: $orange; // $blue;

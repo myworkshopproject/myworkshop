@@ -1,39 +1,124 @@
 version: "3.8"
 
-x-django-quickstart-env: &django-quickstart-env
+x-core-build-env:
+  &core-build-env
+  USER_NAME: "${DOCKER_USER_NAME}"
+  USER_UID: "${DOCKER_USER_UID}"
+  USER_GID: "${DOCKER_USER_GID}"
+
+x-core-dev-env:
+  &core-dev-env
   DEBUG: "True"
-  ALLOWED_HOSTS: "localhost 127.0.0.1 [::1] ${MYAPP_DOMAIN}"
-  SITE_NAME: "${MYAPP_SITE_NAME} (demo)"
+  ALLOWED_HOSTS: "localhost 127.0.0.1 [::1] ${APP_DOMAIN}"
+  APP_SITE_NAME: "${APP_SITE_NAME} (dev)"
+
+x-frontend-build-env:
+  &frontend-build-env
+  NODE_VERSION: "${FRONTEND_NODE_VERSION}"
+  USER_NAME: "${DOCKER_USER_NAME}"
+  USER_UID: "${DOCKER_USER_UID}"
+  USER_GID: "${DOCKER_USER_GID}"
 
 services:
-  reverse-proxy:
+  core:
+    build:
+      context: .
+      dockerfile: ./services/core/Dockerfile
+      args:
+        <<: *core-build-env
+    volumes:
+      - ./.git:/code/.git
+      - ./.gitignore:/code/.gitignore
+      - ./.vscode/settings.core.json:/code/.vscode/settings.json
+      - ./services/core:/code/services/core
+      - ./services/frontend/dist:/code/services/frontend/dist:ro
+      - ./services/frontend/webpack-stats.json:/code/services/frontend/webpack-stats.json:ro
+      - core-venv:/code/services/core/venv
+      - core-tox:/code/services/core/.tox
+    environment:
+      <<: *core-dev-env
+    ports:
+      - "${CORE_HOST_PORT_DEV}:8000"
+    command:
+      - "./services/core/utils/wait-for-postgres.sh"
+      - "./services/core/utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "-C"
+      - "/code/services/core"
+      - "sleep"
 
-  db:
+  core-worker-gateway:
+    command:
+      - "/bin/true"
+    restart: "no"
+
+  core-worker-computation:
+    command:
+      - "/bin/true"
+    restart: "no"
+
+  core-db:
+    ports:
+      - "${POSTGRES_HOST_PORT_DEV}:5432"
 
   brocker:
+    ports:
+      - "${RABBITMQ_HOST_PORT_DEV}:5672"
 
-  core:
+  cache:
+    ports:
+      - "${REDIS_HOST_PORT_DEV}:6379"
+
+  frontend:
+    build:
+      context: ./services/frontend
+      args:
+        <<: *frontend-build-env
+    image: ${APP_NAME}-frontend:${APP_VERSION}
+    volumes:
+      - ./.git:/code/.git
+      - ./.gitignore:/code/.gitignore
+      - ./services/frontend:/code/services/frontend
+      - frontend-node_modules:/code/services/frontend/node_modules
     environment:
-      <<: *django-quickstart-env
+      NODE_ENV: "development"
+    ports:
+      - "${FRONTEND_HOST_PORT_DEV}:3000"
     command:
-      - "./utils/wait-for-postgres.sh"
-      - "./utils/wait-for-rabbitmq.sh"
       - "make"
-      - "quickstart"
-
-  worker:
-    environment:
-      <<: *django-quickstart-env
+      - "-C"
+      - "/code/services/frontend"
+      - "sleep"
 
 volumes:
-  db-data:
+  core-media:
     external: false
-    name: "myworkshop_quickstart_db-data"
+    name: "${APP_NAME}_dev_core-media"
+
+  core-static:
+    external: false
+    name: "${APP_NAME}_dev_core-static"
+
+  core-db-data:
+    external: false
+    name: "${APP_NAME}_dev_core-db-data"
 
   brocker-data:
     external: false
-    name: "myworkshop_quickstart_brocker-data"
+    name: "${APP_NAME}_dev_brocker-data"
 
-  core-media:
+  cache-data:
     external: false
-    name: "myworkshop_quickstart_core-media"
+    name: "${APP_NAME}_dev_cache-data"
+
+  core-venv:
+    external: false
+    name: "${APP_NAME}_dev_core-venv"
+
+  core-tox:
+    external: false
+    name: "${APP_NAME}_dev_core-tox"
+
+  frontend-node_modules:
+    external: false
+    name: "${APP_NAME}_dev_frontend-node_modules"

@@ -1,0 +1,6 @@
+.tox/
+media/
+static/
+venv/
+.coverage
+db.sqlite3

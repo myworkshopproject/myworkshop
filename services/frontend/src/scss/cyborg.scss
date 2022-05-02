@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+// https://bootswatch.com/cyborg/
+
+// Colors
+$grey-darker:   hsl(0, 0%, 21%);
+$orange:        #f80; // hsl(14,  100%, 53%);
+$green:         #77b300; // hsl(153, 53%,  53%);
+$blue:          #2a9fd6; // hsl(229, 53%,  53%);
+$purple:        #93c; // hsl(271, 100%, 71%);
+$red:           #c00; // hsl(348, 86%, 61%);
+$primary:       $grey-darker; // $turquoise;
+$info:          $purple; // $cyan;
+$warning:       $orange; // $yellow;

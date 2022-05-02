@@ -1,40 +1,53 @@
 version: "3.8"
 
-x-nginx-env: &nginx-env
-  NGINX_HOST: "${MYAPP_DOMAIN}"
-  NGINX_PORT: 80
+x-reverse-proxy-env:
+  &reverse-proxy-env
+  NGINX_HOST: "${APP_DOMAIN}"
+  NGINX_PORT: "80"
   NGINX_CLIENT_MAX_BODY_SIZE: "${NGINX_CLIENT_MAX_BODY_SIZE}"
+  MEDIA_ROOT: "/www/media/"
+  STATIC_ROOT: "/www/static/"
 
-x-postgres-env: &postgres-env
-  POSTGRES_HOST: "db"
-  POSTGRES_PORT: 5432
+x-frontend-build-env:
+  &frontend-build-env
+  NODE_VERSION: "${FRONTEND_NODE_VERSION}"
+  USER_NAME: "${DOCKER_USER_NAME}"
+  USER_UID: "${DOCKER_USER_UID}"
+  USER_GID: "${DOCKER_USER_GID}"
+
+x-core-env:
+  &core-env
+  DEBUG: "False"
+  SECRET_KEY: "${CORE_SECRET_KEY}"
+  ALLOWED_HOSTS: "${APP_DOMAIN}"
+  APP_NAME: "${APP_NAME}"
+  APP_SITE_NAME: "${APP_SITE_NAME}"
+  LANGUAGE_CODE: "${APP_LANGUAGE_CODE}"
+  POSTGRES_HOST: "core-db"
+  POSTGRES_PORT: "5432"
+  RABBITMQ_HOST: "brocker"
+  RABBITMQ_PORT: "5672"
+  REDIS_HOST: "cache"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  DJANGO_SUPERUSER_USERNAME: "${CORE_SUPERUSER_USERNAME}"
+  DJANGO_SUPERUSER_PASSWORD: "${CORE_SUPERUSER_PASSWORD}"
+  DJANGO_SUPERUSER_EMAIL: "${CORE_SUPERUSER_EMAIL}"
+
+x-postgres-env:
+  &postgres-env
   POSTGRES_DB: "${POSTGRES_DB}"
   POSTGRES_USER: "${POSTGRES_USER}"
   POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
 
-x-rabbitmq-env: &rabbitmq-env
-  RABBITMQ_HOST: "brocker"
-  RABBITMQ_PORT: 5672
+x-rabbitmq-env:
+  &rabbitmq-env
   RABBITMQ_DEFAULT_VHOST: "${RABBITMQ_DEFAULT_VHOST}"
   RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
   RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
 
-x-django-env: &django-env
-  DEBUG: "${DEBUG}"
-  ALLOWED_HOSTS: "${MYAPP_DOMAIN}"
-  SITE_NAME: "${MYAPP_SITE_NAME}"
-  MEDIA_ROOT: "/var/lib/django/media/"
-  LANGUAGE_CODE: "${MYAPP_LANGUAGE_CODE}"
-  DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
-  DJANGO_SUPERUSER_USERNAME: "${DJANGO_SUPERUSER_USERNAME}"
-  DJANGO_SUPERUSER_PASSWORD: "${DJANGO_SUPERUSER_PASSWORD}"
-  DJANGO_SUPERUSER_EMAIL: "${DJANGO_SUPERUSER_EMAIL}"
-
-x-gunicorn-env: &gunicorn-env
-  GUNICORN_WORKERS: "${GUNICORN_WORKERS}"
-  GUNICORN_LOG_LEVEL: "${GUNICORN_LOG_LEVEL}"
-
-x-email-env: &email-env
+x-email-env:
+  &email-env
   EMAIL_HOST: "${EMAIL_HOST}"
   EMAIL_PORT: "${EMAIL_PORT}"
   EMAIL_HOST_USER: "${EMAIL_HOST_USER}"
@@ -46,22 +59,90 @@ services:
   reverse-proxy:
     image: nginx:${NGINX_VERSION}-alpine
     volumes:
-      - ./reverse-proxy/nginx/templates/:/etc/nginx/templates/:ro
-      - ./core/dist/assets/:/www/assets/:ro
-      - ./core/static/:/www/static/:ro
-      - core-media:/www/media/:ro
+      - core-media:/www/media:ro
+      - core-static:/www/static:ro
+      - ./services/reverse-proxy/nginx/templates:/etc/nginx/templates:ro
     environment:
-      <<: *nginx-env
+      <<: *reverse-proxy-env
     ports:
       - "${NGINX_HOST_PORT}:80"
     depends_on:
       - core
     restart: unless-stopped
 
-  db:
+  core:
+    image: ${APP_NAME}:${APP_VERSION}
+    volumes:
+      - core-media:/code/services/core/media
+      - core-static:/code/services/core/static
+    environment:
+      <<: *core-env
+      <<: *rabbitmq-env
+      <<: *postgres-env
+      <<: *email-env
+    expose:
+      - "8000"
+    command:
+      - "./services/core/utils/wait-for-postgres.sh"
+      - "./services/core/utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "-C"
+      - "/code/services/core"
+      - "prod"
+    depends_on:
+      - core-db
+      - brocker
+      - cache
+    restart: unless-stopped
+
+  core-worker-gateway:
+    image: ${APP_NAME}:${APP_VERSION}
+    volumes:
+      - core-media:/code/services/core/media
+    environment:
+      <<: *core-env
+      <<: *rabbitmq-env
+      <<: *postgres-env
+      <<: *email-env
+    command:
+      - "./services/core/utils/wait-for-postgres.sh"
+      - "./services/core/utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "-C"
+      - "/code/services/core"
+      - "worker-gateway"
+    depends_on:
+      - core-db
+      - brocker
+      - core
+    restart: unless-stopped
+
+  core-worker-computation:
+    image: ${APP_NAME}:${APP_VERSION}
+    volumes:
+      - core-media:/code/services/core/media
+    environment:
+      <<: *core-env
+      <<: *rabbitmq-env
+      <<: *postgres-env
+      <<: *email-env
+    command:
+      - "./services/core/utils/wait-for-postgres.sh"
+      - "./services/core/utils/wait-for-rabbitmq.sh"
+      - "make"
+      - "-C"
+      - "/code/services/core"
+      - "worker-computation"
+    depends_on:
+      - core-db
+      - brocker
+      - core
+    restart: unless-stopped
+
+  core-db:
     image: postgres:${POSTGRES_VERSION}-alpine
     volumes:
-      - db-data:/var/lib/postgresql/data/
+      - core-db-data:/var/lib/postgresql/data
     environment:
       <<: *postgres-env
     expose:
@@ -71,7 +152,7 @@ services:
   brocker:
     image: rabbitmq:${RABBITMQ_VERSION}-management-alpine
     volumes:
-      - brocker-data:/var/lib/rabbitmq/
+      - brocker-data:/var/lib/rabbitmq
     environment:
       <<: *rabbitmq-env
     expose:
@@ -80,63 +161,31 @@ services:
       - "${RABBITMQ_MANAGEMENT_HOST_PORT}:15672"
     restart: unless-stopped
 
-  core:
-    build:
-      context: ./core/
-      args:
-        - PYTHON_VERSION=${PYTHON_VERSION}
-    image: ${MYAPP_NAME}:${MYAPP_VERSION}
+  cache:
+    image: redis:${REDIS_VERSION}-alpine
     volumes:
-      - core-media:/var/lib/django/media/
-    environment:
-      <<: *postgres-env
-      <<: *rabbitmq-env
-      <<: *django-env
-      <<: *gunicorn-env
-      <<: *email-env
+      - cache-data:/data
     expose:
-      - "8000"
-    command:
-      - "./utils/wait-for-postgres.sh"
-      - "./utils/wait-for-rabbitmq.sh"
-      - "make"
-      - "prod"
-    depends_on:
-      - db
-      - brocker
-    restart: unless-stopped
-
-  worker:
-    image: ${MYAPP_NAME}:${MYAPP_VERSION}
-    volumes:
-      - core-media:/var/lib/django/media/
-    environment:
-      <<: *postgres-env
-      <<: *rabbitmq-env
-      <<: *django-env
-      <<: *email-env
-    expose:
-      - "8000"
-    command:
-      - "./utils/wait-for-postgres.sh"
-      - "./utils/wait-for-rabbitmq.sh"
-      - "make"
-      - "worker"
-    depends_on:
-      - db
-      - brocker
-      - core
+      - "6379"
     restart: unless-stopped
 
 volumes:
-  db-data:
-    external: true
-    name: "${MYAPP_INSTANCE_NAME}_prod_db-data"
+  core-media:
+    external: false
+    name: "${APP_NAME}_prod_core-media"
+
+  core-static:
+    external: false
+    name: "${APP_NAME}_prod_core-static"
+
+  core-db-data:
+    external: false
+    name: "${APP_NAME}_prod_core-db-data"
 
   brocker-data:
-    external: true
-    name: "${MYAPP_INSTANCE_NAME}_prod_brocker-data"
+    external: false
+    name: "${APP_NAME}_prod_brocker-data"
 
-  core-media:
-    external: true
-    name: "${MYAPP_INSTANCE_NAME}_prod_core-media"
+  cache-data:
+    external: false
+    name: "${APP_NAME}_prod_cache-data"

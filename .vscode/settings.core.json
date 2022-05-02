@@ -1,0 +1,12 @@
+{
+    // Apparence
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#5c1649"
+    },
+    // Python
+    "python.analysis.extraPaths": [
+        "/code/services/core/apps",
+    ],
+    "python.defaultInterpreterPath": "/code/services/core/venv/bin/python",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+}

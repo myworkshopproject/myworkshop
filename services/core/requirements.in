@@ -1,0 +1,44 @@
+# Django
+django>=4.0.4
+
+# PostgreSQL
+psycopg2-binary
+
+# Gunicorn
+gunicorn
+
+# Celery
+celery
+django-celery-results
+
+# Auth
+django-allauth
+
+# i18n
+django-modeltranslation
+
+# Log
+django-simple-history
+
+# Forms
+django-widget-tweaks
+
+# Debug
+django-debug-toolbar
+
+# Django REST Framework
+djangorestframework
+markdown
+django-filter
+
+# Front-end
+django-webpack-loader
+
+# Cache
+redis
+
+# Models
+django-model-utils
+
+# Images
+Pillow

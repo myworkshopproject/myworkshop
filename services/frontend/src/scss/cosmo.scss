@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+// https://bootswatch.com/cosmo/
+
+// Colors
+$grey-darker: hsl(204, 4%, 23%); // #373a3c; // hsl(0, 0%, 21%);
+$grey-dark: hsl(204, 4%, 29%); // hsl(0, 0%, 29%);
+$grey: hsl(204, 4%, 48%); // hsl(0, 0%, 48%);
+$grey-light: hsl(204, 4%, 71%); // hsl(0, 0%, 71%);
+$grey-lighter: hsl(204, 4%, 86%); // hsl(0, 0%, 86%);
+$grey-lightest: hsl(204, 4%, 93%); // hsl(0, 0%, 93%);
+$white-ter: hsl(204, 4%, 96%); // hsl(0, 0%, 96%);
+$white-bis: hsl(204, 4%, 98%); // hsl(0, 0%, 98%);
+$white: hsl(204, 4%, 100%); // hsl(0, 0%, 100%);
+$orange: #ff7518; // hsl(14,  100%, 53%);
+$green: #3fb618; // hsl(153, 53%,  53%);
+$blue: #2780e3; // hsl(229, 53%,  53%);
+$purple: #9954bb; // hsl(271, 100%, 71%);
+$red: #ff0039; // hsl(348, 86%, 61%);
+$primary: $grey-darker; // $turquoise;
+$info: $purple; // $cyan;
+$warning: $orange; // $yellow;
+$light: $white-ter; // $white-ter;
+$dark: $grey; // $grey-darker;

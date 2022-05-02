@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+// https://bootswatch.com/flatly/
+
+// Colors
+$grey-darker:   hsl(184, 0%, 21%);
+$grey-dark:     hsl(184, 0%, 29%);
+$grey:          hsl(184, 6%, 51%); // #7b8a8b; // hsl(0, 0%, 48%);
+$grey-light:    hsl(184, 0%, 71%);
+$grey-lighter:  hsl(184, 0%, 86%);
+$grey-lightest: hsl(192, 15%, 94%); // #ecf0f1; // hsl(0, 0%, 93%);
+$white-ter:     hsl(192, 15%, 96%);
+$white-bis:     hsl(192, 15%, 98%);
+$white:         hsl(192, 15%, 100%);
+$orange:        #f39c12; // hsl(14,  100%, 53%);
+$green:         #18bc9c; // hsl(153, 53%,  53%);
+$turquoise:     #2c3e50; // hsl(171, 100%, 41%);
+$blue:          #3498db; // hsl(229, 53%,  53%);
+$red:           #e74c3c; // hsl(348, 86%, 61%);
+$primary:       $turquoise; // $turquoise;
+$info:          $blue; // $cyan;
+$warning:       $orange; // $yellow;
+$light:         $grey-lightest; // $white-ter;
+$dark:          $grey; // $grey-darker;
+$link: $green; // $blue;
+$link-visited: $turquoise;// $purple;
+$link-focus-border: $green; // $blue;
+
+
