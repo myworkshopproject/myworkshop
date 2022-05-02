@@ -15,6 +15,7 @@ urlpatterns += i18n_patterns(
     path("accounts/", include("allauth.urls")),
     path("", include("accounts.urls")),
     path("", include("core.urls")),
+    path("fake/", include("fake.urls")),
 )
 
 router = DefaultRouter()
