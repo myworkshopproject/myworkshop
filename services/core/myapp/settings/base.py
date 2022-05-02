@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     # Core apps
     "core.apps.CoreConfig",
+    "fake.apps.FakeConfig",
 ]
 
 # Middewares
