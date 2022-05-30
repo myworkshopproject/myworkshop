@@ -62,9 +62,11 @@ INSTALLED_APPS = [
     "simple_history",
     "webpack_loader",
     "widget_tweaks",
+    'ordered_model',
     # Core apps
     "core.apps.CoreConfig",
-    "polls.apps.PollsConfig"
+    "polls.apps.PollsConfig",
+    "notes.apps.NotesConfig"
 ]
 
 # Middewares

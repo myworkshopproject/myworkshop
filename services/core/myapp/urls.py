@@ -16,6 +16,7 @@ urlpatterns += i18n_patterns(
     path("", include("accounts.urls")),
     path("", include("core.urls")),
     path("polls/", include("polls.urls")),
+    path("notes/", include("notes.urls"))
 )
 
 router = DefaultRouter()

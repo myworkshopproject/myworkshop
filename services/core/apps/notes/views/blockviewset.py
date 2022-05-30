@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from serializers import BlockSerializer
-from models.block import Block
-from permissions import IsOwnerOrReadOnly
+from notes.serializers import BlockSerializer
+from notes.models.block import Block
+from notes.permissions import IsOwnerOrReadOnly
 
 class BlockViewSet(viewsets.ModelViewSet):
     """

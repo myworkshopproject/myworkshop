@@ -42,3 +42,6 @@ django-model-utils
 
 # Images
 Pillow
+
+#Django Ordered Model
+django-ordered-model
