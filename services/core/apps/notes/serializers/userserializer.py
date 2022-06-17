@@ -1,4 +1,3 @@
-from attr import fields
 from myapp.settings.auth import AUTH_USER_MODEL
 
 from rest_framework import serializers

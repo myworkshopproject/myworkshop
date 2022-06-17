@@ -1,10 +1,13 @@
-from .apiview import api_root
 from .blockviewset import BlockViewSet
 from .userviewset import UserViewSet
-
+from .editorjsview import editorjs_view
+from .updateblocks import update_blocks
+from .getblocks import get_blocks
 
 __all__ = [
-    "api_root",
     "BlockViewSet",
     "UserViewSet",
+    "editorjs_view",
+    "update_blocks",
+    "get_blocks",
 ]
