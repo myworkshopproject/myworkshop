@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'ordered_model',
     # Core apps
     "core.apps.CoreConfig",
-    "polls.apps.PollsConfig",
     "notes.apps.NotesConfig"
 ]
 

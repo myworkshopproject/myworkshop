@@ -8,8 +8,7 @@ from accounts.viewsets import UserViewSet
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
-    path("polls/", include("polls.urls")),
-    path("notes/", include("notes.urls"))
+    path("notes/", include("notes.urls")),
 ]
 
 urlpatterns += i18n_patterns(
