@@ -51,7 +51,7 @@ const editor = new EditorJS({
       },
       inlineCode: {
         class: InlineCode,
-        shortcut: 'CMD+SHIFT+M',
+        shortcut: 'CMD+SHIFT+P',
       },
       checklist: {
         class: Checklist,
@@ -84,8 +84,9 @@ function SaveBlocks(){
     xhr.open("POST", "/notes/editorjs_posting/", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     editor.save().then((data) => {
-      console.log(data),
-      xhr.send(JSON.stringify(data))
+      console.log(data);
+      xhr.send(JSON.stringify(data));
+      console.log(xhr)
     })
 };
 

@@ -8,6 +8,8 @@ from accounts.viewsets import UserViewSet
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
+    path("polls/", include("polls.urls")),
+    path("notes/", include("notes.urls"))
 ]
 
 urlpatterns += i18n_patterns(
@@ -15,8 +17,6 @@ urlpatterns += i18n_patterns(
     path("accounts/", include("allauth.urls")),
     path("", include("accounts.urls")),
     path("", include("core.urls")),
-    path("polls/", include("polls.urls")),
-    path("notes/", include("notes.urls"))
 )
 
 router = DefaultRouter()

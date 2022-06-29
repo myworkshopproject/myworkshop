@@ -1,10 +1,8 @@
+{% extends "core/large.html" %}
+{% load i18n %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en"><head>
-    <link rel="shortcut icon" href="#">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EditorJS</title>
+
+{% block head_js %}
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
@@ -17,13 +15,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head><body>
-    <h1>My Lab Book</h1>
+{% endblock head_js %}
+
+
+{% block page_content %}
+    <h1 class="title">My Lab Book</h1>
     <div class="container">
         <div id="editorjs"></div>
+        
     </div>
     <script src="{% static 'js/index.js' %}"></script>
-    <h1>*****</h1>
-    <div  onclick="SaveBlocks()" class="btn">Save</div>
-</body></html>
+{% endblock page_content %}
+
+{% block main_menu %}
+    <button  onclick="SaveBlocks()" class="button is-primary">Save</button>
+{% endblock main_menu %}
