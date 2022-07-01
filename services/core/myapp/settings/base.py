@@ -165,7 +165,7 @@ STATICFILES_DIRS = [
 
 # Media files
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = str(os.environ.get("MEDIA_ROOT", BASE_DIR / "media"))
 
 # django-webpack-loader
 WEBPACK_LOADER = {
