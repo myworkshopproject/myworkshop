@@ -16,11 +16,9 @@
     {% endblock robots %}
 
     <meta name="author" content="{% if object.author %}{{ object.author }}{% else %}{{ request.site.name }}{% endif %}">
-    <meta name="description"
-        content="{% if object.description %}{{ object.description }}{% else %}{{ request.site.sitecustomization.tagline }}{% endif %}">
+    <meta name="description" content="{% if object.description %}{{ object.description }}{% else %}{{ request.site.sitecustomization.tagline }}{% endif %}">
     {% if object.tags %}
-    <meta name="keywords"
-        content="{% for tag in object.tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+    <meta name="keywords" content="{% for tag in object.tags %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}">
     {% endif %}
     <meta name="generator" content="My Workshop">
     <meta name="publisher" content="{{ request.site.name }}">
@@ -29,8 +27,7 @@
     {% include "core/opengraph/base.html" %}
     {% endblock opengraph %}
 
-    <title>{% block head_title %}{% if object.title %}{{ object.title }} | {% else %}{% endif %}{{ request.site.name
-        }}{% endblock head_title %}</title>
+    <title>{% block head_title %}{% if object.title %}{{ object.title }} | {% else %}{% endif %}{{ request.site.name }}{% endblock head_title %}</title>
 
     {% block css %}
     {% block page_css %}
