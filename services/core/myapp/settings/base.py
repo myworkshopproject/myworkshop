@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "simple_history",
     "webpack_loader",
     "widget_tweaks",
+    "mptt",
     # Core apps
     "core.apps.CoreConfig",
 ]

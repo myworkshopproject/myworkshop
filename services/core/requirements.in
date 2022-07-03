@@ -39,6 +39,7 @@ redis
 
 # Models
 django-model-utils
+django-mptt
 
 # Images
 Pillow
