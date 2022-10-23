@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "mptt",
     # Core apps
     "core.apps.CoreConfig",
+    "labbook.apps.LabbookConfig",
 ]
 
 # Middewares
